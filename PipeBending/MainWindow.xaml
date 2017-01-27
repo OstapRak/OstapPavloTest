@@ -1,0 +1,70 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        xmlns:ddes="http://schemas.devdept.com/winfx/2008/xaml/control"
+        xmlns:ddgr="http://schemas.devdept.com/winfx/2008/xaml/graphics"
+        xmlns:ddds="http://schemas.devdept.com/winfx/2008/xaml/dataset"
+        xmlns:wpfApplication1="clr-namespace:WpfApplication1"
+        x:Class="WpfApplication1.MainWindow"        
+        Title="MainWindow" Height="400" Width="400" FocusManager.FocusedElement="{Binding ElementName=viewportLayout1}">
+    
+    <Grid Margin="5 0 5 5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <wpfApplication1:MyViewportLayout x:Name="viewportLayout1" >
+            <ddes:ViewportLayout.BoundingBox>
+                <ddes:BoundingBox Lighting="False"/>
+            </ddes:ViewportLayout.BoundingBox>
+            <ddes:ViewportLayout.Viewports>
+                <ddes:Viewport>
+                    <ddes:Viewport.OriginSymbol>
+                        <ddes:OriginSymbol Lighting="False"/>
+                    </ddes:Viewport.OriginSymbol>
+                    <ddes:Viewport.CoordinateSystemIcon>
+                        <ddes:CoordinateSystemIcon Lighting="False"/>
+                    </ddes:Viewport.CoordinateSystemIcon>
+                    <ddes:Viewport.ViewCubeIcon>
+                        <ddes:ViewCubeIcon Lighting="False"/>
+                    </ddes:Viewport.ViewCubeIcon>
+                    <ddes:Viewport.Background>
+                        <ddgr:BackgroundSettings BottomColor="#FF434752" StyleMode="LinearGradient" TopColor="#FF222329"/>
+                    </ddes:Viewport.Background>
+                    <ddes:Viewport.Grids>
+                        <ddes:Grid Step="10" Lighting="False"/>
+                    </ddes:Viewport.Grids>
+                    <ddes:Viewport.ToolBar>
+                        <ddes:ToolBar Position="HorizontalTopCenter">
+                            <ddes:ToolBar.Buttons>
+                                <ddes:HomeToolBarButton/>
+                                <ddes:MagnifyingGlassToolBarButton/>
+                                <ddes:ZoomWindowToolBarButton/>
+                                <ddes:ZoomToolBarButton/>
+                                <ddes:PanToolBarButton/>
+                                <ddes:RotateToolBarButton/>
+                                <ddes:ZoomFitToolBarButton/>
+                            </ddes:ToolBar.Buttons>
+                        </ddes:ToolBar>
+                    </ddes:Viewport.ToolBar>
+                </ddes:Viewport>
+            </ddes:ViewportLayout.Viewports>
+        </wpfApplication1:MyViewportLayout>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button  Command="{Binding ShowParamCommand}">ShowParam</Button>
+            
+            <TextBox TextChanged="RefreshSelectedItem" x:Name="NumberChangedComponent" Text="{Binding NewChanges, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox  x:Name="SelectedIndexTextBox" Text="{Binding SelectedComponentIndex, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        </StackPanel>
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding AddDuctCommand}">AddDuct</Button>
+        <StackPanel Grid.Column="1">
+            <ListBox  Visibility="Hidden" Name="listBox" ></ListBox>
+            <ListBox  Visibility="Hidden" Name="EventsInProject"  ItemsSource="{Binding ListBoxSourse}"></ListBox>
+            <wpfApplication1:PropertiesUserControl x:Name ="userControl" />
+        </StackPanel>
+    </Grid>
+</Window>
